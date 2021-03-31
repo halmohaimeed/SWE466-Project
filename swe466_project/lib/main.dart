@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:swe466_project/screens/home.dart';
+import 'router.dart' as router;
 
 void main() {
   runApp(MyApp());
@@ -10,7 +10,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Home(),
+      onGenerateRoute: router.generateRoute,
+      initialRoute: "/",
     );
   }
 }
