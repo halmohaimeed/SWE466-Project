@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 Widget getTextFiled(controller, labelText, width) {
-  TextField(
+  return TextField(
     controller: controller,
     decoration: InputDecoration(
       labelText: labelText,
