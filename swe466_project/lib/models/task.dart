@@ -56,4 +56,21 @@ class Task {
     }
     return castedDates;
   }
+
+  static Task fromJson(Map<String, dynamic> map) {
+    List<dynamic> resourceList = map['resoures'];
+    List<Resource> resoures = [];
+    resourceList.forEach((element) {
+      var task = Resource.fromJson(element);
+      resoures.add(task);
+    });
+
+    return Task(
+      taskName: map['taskName'],
+      startDate: map['startDate'],
+      duration: map['duration'],
+      resoures: resoures,
+      cost: map['cost'],
+    );
+  }
 }

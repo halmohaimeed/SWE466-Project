@@ -12,4 +12,12 @@ class Resource {
       "cost": this.cost,
     };
   }
+
+  static Resource fromJson(Map<String, dynamic> map) {
+    return Resource(
+      name: map['name'],
+      count: map['count'],
+      cost: map['cost'],
+    );
+  }
 }
