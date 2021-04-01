@@ -32,9 +32,6 @@ class Task {
     };
   }
 
-  static Task fromJson(Map<String, dynamic> map){
-
-  }
 
   List<Map<String, dynamic>> resourcesToMapArray() {
     List<Map<String, dynamic>> mapfiedResoucres = [];
