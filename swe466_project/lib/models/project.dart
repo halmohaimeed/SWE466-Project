@@ -28,6 +28,23 @@ class Project {
     };
   }
 
+  static Project fromJson(Map<String, dynamic> map){
+
+    if (map == null){
+      return null;
+    }
+
+    List<Map<String, dynamic>> jTasks = map["tasks"];
+    List<Task> convTasks = List<Task>.empty();
+
+    jTasks.forEach((task) {
+      convTasks.add(Task.fromJson(task));
+     });
+
+    return Project(map["name"], map["description"], map["goals"], map["tasks"]);  
+
+  }
+
   double calcTotalCost(List<Task> tasks){ //uses parmeter to be called before creating project obj 
     double total = 0;
     for (var task in tasks) {

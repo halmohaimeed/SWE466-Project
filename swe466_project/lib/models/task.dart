@@ -32,7 +32,9 @@ class Task {
     };
   }
 
-  
+  static Task fromJson(Map<String, dynamic> map){
+
+  }
 
   bool isAtSameDate(DateTime date1, DateTime date2) {
     if (date1.day == date2.day) {
