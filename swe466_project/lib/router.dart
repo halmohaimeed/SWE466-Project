@@ -5,7 +5,7 @@ import 'package:swe466_project/screens/home.dart';
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
     case "/":
-      return MaterialPageRoute(builder: (context) => AddTasks());
+      return MaterialPageRoute(builder: (context) => Home());
     default:
       return MaterialPageRoute(builder: (context) => Home());
   } //end switch
