@@ -24,7 +24,9 @@ class DatabaseServices {
         _projectController.add(List<Project>.empty());
       }
 
-      return _projectController;
     });
+
+    return  _projectController.stream;
+
   }
 }

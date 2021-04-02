@@ -7,12 +7,14 @@ class Project {
   List<Task> tasks;
   double totalCost;
 
-  Project(name, description, goals, tasks) {
+  Project([name, description, goals, tasks]) {
+    if(name != null){
     this.name = name;
     this.description = description;
     this.goals = goals;
     this.tasks = tasks;
     this.totalCost = calcTotalCost(tasks);
+    }
   } // end project()
 
   Map<String, dynamic> toMap() {

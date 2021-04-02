@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:swe466_project/screens/addTasks.dart';
+import 'package:swe466_project/screens/createProject.dart';
 import 'package:swe466_project/screens/home.dart';
 import 'package:swe466_project/screens/projectDetails.dart';
 import 'package:swe466_project/screens/projectSummary.dart';
@@ -27,6 +28,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
           project: project,
         ),
       );
+    case "CreateProject":
+      return MaterialPageRoute(builder: (context) => CreateProject());
     default:
       return MaterialPageRoute(builder: (context) => Home());
   } //end switch

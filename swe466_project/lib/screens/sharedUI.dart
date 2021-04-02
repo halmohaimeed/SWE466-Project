@@ -4,8 +4,9 @@ import 'package:flutter/widgets.dart';
 Widget getTextFiled(controller, labelText, width) {
   return TextField(
     controller: controller,
+    maxLines: null,
     decoration: InputDecoration(
-      border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
+      border: OutlineInputBorder(borderRadius: BorderRadius.circular(30.0)),
       labelText: labelText,
       labelStyle: TextStyle(fontSize: width * 0.04, color: Colors.grey[700]),
     ),

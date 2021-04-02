@@ -18,12 +18,13 @@ class Home extends StatelessWidget {
       viewModelBuilder: () => locator<HomeViewModel>(),
       onModelReady: (model) => model.getProjects(),
       builder: (context, model, child) => Scaffold(
+        backgroundColor: Colors.white,
         appBar: AppBar(
           title: Text("Home"),
         ),
         floatingActionButton: FloatingActionButton.extended(
           onPressed: () {
-            //navigate to add project
+            Navigator.pushNamed(context, "CreateProject");
           },
           label: const Text("Add Project"),
           icon: const Icon(Icons.add),
