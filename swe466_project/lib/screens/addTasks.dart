@@ -16,7 +16,7 @@ class _AddTasksState extends State<AddTasks> {
   TextEditingController startDateController = TextEditingController();
   TextEditingController durationController = TextEditingController();
 
-  List<ResourceWidget> resourceWidgets = [];
+  List<ResourceWidget> resourceWidgets = [new ResourceWidget()];
   List<Resource> resources = [];
 
   @override
@@ -24,13 +24,32 @@ class _AddTasksState extends State<AddTasks> {
     var screenSize = MediaQuery.of(context).size;
     var width = screenSize.width;
 
-    Widget dynamicTextField = new Flexible(
-      flex: 2,
-      child: new ListView.builder(
+    Widget dynamicTextField = ListView(shrinkWrap: true, children: [
+      ListView.builder(
+        shrinkWrap: true,
         itemCount: resourceWidgets.length,
         itemBuilder: (_, index) => resourceWidgets[index],
       ),
-    );
+      Container(
+        margin: EdgeInsets.symmetric(horizontal: 30),
+        child: Align(
+          child: SizedBox(
+            width: width * 0.4,
+            child: MaterialButton(
+                child: Text("Add Resource"),
+                color: Colors.blue,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(18.0),
+                ),
+                onPressed: () {
+                  setState(() {
+                    resourceWidgets.add(new ResourceWidget());
+                  });
+                }),
+          ),
+        ),
+      )
+    ]);
     EdgeInsets edgePadding =
         EdgeInsets.fromLTRB(0, width * 0.025, 0, width * 0.025);
 
@@ -74,19 +93,13 @@ class _AddTasksState extends State<AddTasks> {
           ),
           getTextFiled(durationController, "Duration in Days", width),
           dynamicTextField,
-          CustomButton(() {}, "Add New Task"),
-          CustomButton(() {}, "Add New Task"),
+          Padding(
+            padding: edgePadding,
+            child: CustomButton(() {}, "Add New Task"),
+          ),
+          Padding(padding: edgePadding, child: CustomButton(() {}, "Submit")),
         ],
       ),
-      floatingActionButton: new FloatingActionButton(
-          elevation: 0.0,
-          child: Text("Add Resource"),
-          backgroundColor: Colors.blue,
-          onPressed: () {
-            setState(() {
-              resourceWidgets.add(new ResourceWidget());
-            });
-          }),
     );
   }
 
