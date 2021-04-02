@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:swe466_project/models/project.dart';
 import 'package:swe466_project/models/resoure.dart';
+import 'package:swe466_project/models/task.dart';
 import 'package:swe466_project/screens/sharedUI.dart';
 
 class AddTasks extends StatefulWidget {
@@ -17,7 +18,7 @@ class _AddTasksState extends State<AddTasks> {
   TextEditingController durationController = TextEditingController();
 
   List<ResourceWidget> resourceWidgets = [new ResourceWidget()];
-  List<Resource> resources = [];
+  List<Task> tasks = [];
 
   @override
   Widget build(BuildContext context) {
@@ -95,12 +96,49 @@ class _AddTasksState extends State<AddTasks> {
           dynamicTextField,
           Padding(
             padding: edgePadding,
-            child: CustomButton(() {}, "Add New Task"),
+            child: CustomButton(() {
+              saveTaskInfo();
+            }, "Add New Task"),
           ),
           Padding(padding: edgePadding, child: CustomButton(() {}, "Submit")),
         ],
       ),
     );
+  }
+
+  saveTaskInfo() {
+    List<Resource> resourses = [];
+    double totalCost = 0.0;
+
+    resourceWidgets.forEach((element) {
+      double cost = double.parse(element.costController.text);
+      int count = int.parse(element.countController.text);
+
+      Resource resource = new Resource(
+          name: element.resourceNameController.text, cost: cost, count: count);
+
+      resourses.add(resource);
+      totalCost += (count * cost);
+    });
+    Task task = new Task(
+        taskName: taskNameController.text,
+        startDate: _dateTime,
+        duration: int.parse(durationController.text),
+        cost: totalCost,
+        resoures: resourses);
+
+    tasks.add(task);
+    emptyFileds();
+  }
+
+  void emptyFileds() {
+    taskNameController.clear();
+    startDateController.clear();
+    durationController.clear();
+
+    setState(() {
+      resourceWidgets = [new ResourceWidget()];
+    });
   }
 
   Future _datePicker(BuildContext context) async {
@@ -121,9 +159,9 @@ class _AddTasksState extends State<AddTasks> {
 
 class ResourceWidget extends StatelessWidget {
   Resource resource;
-  TextEditingController resourceName = new TextEditingController();
-  TextEditingController count = new TextEditingController();
-  TextEditingController cost = new TextEditingController();
+  TextEditingController resourceNameController = new TextEditingController();
+  TextEditingController countController = new TextEditingController();
+  TextEditingController costController = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -137,17 +175,18 @@ class ResourceWidget extends StatelessWidget {
               Container(
                 width: 200,
                 padding: EdgeInsets.fromLTRB(5, 5, 5, 0),
-                child: getTextFiled(resourceName, "Resource Name", width),
+                child: getTextFiled(
+                    resourceNameController, "Resource Name", width),
               ),
               Container(
                 width: 100,
                 padding: EdgeInsets.fromLTRB(5, 5, 5, 0),
-                child: getTextFiled(count, "Count", width),
+                child: getTextFiled(countController, "Count", width),
               ),
               Container(
                 width: 100,
                 padding: EdgeInsets.fromLTRB(5, 5, 5, 0),
-                child: getTextFiled(cost, "Cost ", width),
+                child: getTextFiled(costController, "Cost ", width),
               )
             ],
           )

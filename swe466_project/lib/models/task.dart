@@ -10,10 +10,10 @@ class Task {
 
   Task({
     @required taskName,
-    startDate,
-    duration,
-    resoures,
-    cost,
+    @required startDate,
+    @required duration,
+    @required resoures,
+    @required cost,
   }) {
     this.taskName = taskName;
     this.startDate = startDate;
@@ -31,7 +31,6 @@ class Task {
       "cost": this.cost
     };
   }
-
 
   List<Map<String, dynamic>> resourcesToMapArray() {
     List<Map<String, dynamic>> mapfiedResoucres = [];
