@@ -270,6 +270,7 @@ class ProjectSummary extends StatelessWidget {
             ),
             CustomButton(() async {
               await ProjectSummaryViewModel().submitProject(project);
+              Navigator.pushNamed(context, "/");
             }, "Submit Project")
           ],
         ),
