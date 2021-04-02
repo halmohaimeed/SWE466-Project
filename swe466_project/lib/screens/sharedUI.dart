@@ -5,6 +5,7 @@ Widget getTextFiled(controller, labelText, width) {
   return TextField(
     controller: controller,
     decoration: InputDecoration(
+      border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
       labelText: labelText,
       labelStyle: TextStyle(fontSize: width * 0.04, color: Colors.grey[700]),
     ),
@@ -23,7 +24,7 @@ class CustomButton extends StatelessWidget {
       borderRadius: BorderRadius.circular(30.0),
       color: Colors.blue,
       child: MaterialButton(
-        minWidth: MediaQuery.of(context).size.width,
+        minWidth: MediaQuery.of(context).size.width * 0.65,
         padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
         onPressed: onPressed,
         child: Text(text,
