@@ -79,7 +79,7 @@ class Home extends StatelessWidget {
                                             icon: Icon(Icons.info_outlined),
                                             color: Colors.grey,
                                             onPressed: (){
-                                              //navigate
+                                              Navigator.pushNamed(context, "ProjectDetails", arguments: project);
                                             },
                                           ),
 
