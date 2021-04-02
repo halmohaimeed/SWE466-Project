@@ -6,7 +6,7 @@ import 'package:swe466_project/screens/sharedUI.dart';
 
 class AddTasks extends StatefulWidget {
   Project project;
-  AddTasks();
+  AddTasks({this.project});
   @override
   _AddTasksState createState() => _AddTasksState();
 }
@@ -66,47 +66,55 @@ class _AddTasksState extends State<AddTasks> {
           ),
         ),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Padding(
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+                padding: edgePadding,
+                child: getTextFiled(taskNameController, "Task Name", width)),
+            Padding(
               padding: edgePadding,
-              child: getTextFiled(taskNameController, "Task Name", width)),
-          Padding(
-            padding: edgePadding,
-            child: TextField(
-              controller: startDateController,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(32.0)),
-                labelText: "Start Date",
-                icon: Icon(Icons.calendar_today),
-                labelStyle:
-                    TextStyle(fontSize: width * 0.04, color: Colors.grey[700]),
+              child: TextField(
+                controller: startDateController,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(32.0)),
+                  labelText: "Start Date",
+                  icon: Icon(Icons.calendar_today),
+                  labelStyle: TextStyle(
+                      fontSize: width * 0.04, color: Colors.grey[700]),
+                ),
+                readOnly: true,
+                onTap: () {
+                  setState(() {
+                    _datePicker(context);
+                  });
+                },
               ),
-              readOnly: true,
-              onTap: () {
-                setState(() {
-                  _datePicker(context);
-                });
-              },
             ),
-          ),
-          getTextFiled(durationController, "Duration in Days", width),
-          dynamicTextField,
-          Padding(
-            padding: edgePadding,
-            child: CustomButton(() {
-              saveTaskInfo();
-            }, "Add New Task"),
-          ),
-          Padding(padding: edgePadding, child: CustomButton(() {}, "Submit")),
-        ],
+            getTextFiled(durationController, "Duration in Days", width),
+            dynamicTextField,
+            Padding(
+              padding: edgePadding,
+              child: CustomButton(() {
+                saveTaskInfo();
+              }, "Add New Task"),
+            ),
+            Padding(
+                padding: edgePadding,
+                child: CustomButton(() {
+                  widget.project.tasks = tasks;
+                  Navigator.pushNamed(context, "ProjectSummary",
+                      arguments: widget.project);
+                }, "Submit")),
+          ],
+        ),
       ),
     );
   }
 
-  saveTaskInfo() {
+  void saveTaskInfo() {
     List<Resource> resourses = [];
     double totalCost = 0.0;
 
