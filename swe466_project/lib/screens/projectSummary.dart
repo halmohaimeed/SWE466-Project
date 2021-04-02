@@ -103,7 +103,7 @@ class ProjectSummary extends StatelessWidget {
                           width: width * 0.02,
                         ),
                         Text(
-                          "${project.totalCost}",
+                          "${project.calcTotalCost(project.tasks)}",
                           style: TextStyle(
                             color: Colors.black87,
                             fontSize: 20,
