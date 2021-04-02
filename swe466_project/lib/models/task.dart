@@ -67,7 +67,7 @@ class Task {
 
     return Task(
       taskName: map['taskName'],
-      startDate: map['startDate'],
+      startDate: map['startDate'].toDate(),
       duration: map['duration'],
       resoures: resoures,
       cost: map['cost'],

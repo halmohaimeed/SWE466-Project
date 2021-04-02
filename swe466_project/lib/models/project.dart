@@ -29,15 +29,14 @@ class Project {
     if (map == null) {
       return null;
     }
-
-    List<Map<String, dynamic>> jTasks = map["tasks"];
-    List<Task> convTasks = List<Task>.empty();
+    List<dynamic> jTasks = map["tasks"];
+    List<Task> convTasks = [];
 
     jTasks.forEach((task) {
       convTasks.add(Task.fromJson(task));
     });
-
-    return Project(map["name"], map["description"], map["goals"], map["tasks"]);
+    List<String> goals = new List<String>.from(map["goals"]);
+    return Project(map["name"], map["description"], goals, convTasks);
   }
 
   double calcTotalCost(List<Task> tasks) {
