@@ -55,15 +55,9 @@ class _AddTasksState extends State<AddTasks> {
         EdgeInsets.fromLTRB(0, width * 0.025, 0, width * 0.025);
 
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text(
           "Add Project Tasks",
-          style: TextStyle(
-            color: Colors.blue,
-            fontSize: 34.0,
-            fontWeight: FontWeight.w400,
-          ),
         ),
       ),
       body: SingleChildScrollView(
