@@ -5,7 +5,7 @@ import 'package:swe466_project/services/databaseServices.dart';
 
 import '../locator.dart';
 
-class HomeViewModel extends ChangeNotifier {
+class ProjectSummaryViewModel extends ChangeNotifier {
   final _firstoreService = locator<DatabaseServices>();
   ViewState _state = ViewState.Idle;
 
@@ -14,7 +14,9 @@ class HomeViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void submitProject(Project project) {
-    _firstoreService.addProject(project);
+  Future<void> submitProject(Project project) async {
+    setState(ViewState.Busy);
+    await _firstoreService.addProject(project);
+    setState(ViewState.Idle);
   }
 }

@@ -1,24 +1,21 @@
-
 import 'package:swe466_project/models/task.dart';
 
 class Project {
-
   String name;
   String description;
   List<String> goals;
   List<Task> tasks;
   double totalCost;
 
-
-  Project(name, description, goals, tasks){
+  Project(name, description, goals, tasks) {
     this.name = name;
     this.description = description;
     this.goals = goals;
     this.tasks = tasks;
     this.totalCost = calcTotalCost(tasks);
-  }// end project()
+  } // end project()
 
-  Map<String, dynamic> toMap(){
+  Map<String, dynamic> toMap() {
     return {
       "name": this.name,
       "description": this.description,
@@ -28,9 +25,8 @@ class Project {
     };
   }
 
-  static Project fromJson(Map<String, dynamic> map){
-
-    if (map == null){
+  static Project fromJson(Map<String, dynamic> map) {
+    if (map == null) {
       return null;
     }
 
@@ -39,13 +35,13 @@ class Project {
 
     jTasks.forEach((task) {
       convTasks.add(Task.fromJson(task));
-     });
+    });
 
-    return Project(map["name"], map["description"], map["goals"], map["tasks"]);  
-
+    return Project(map["name"], map["description"], map["goals"], map["tasks"]);
   }
 
-  double calcTotalCost(List<Task> tasks){ //uses parmeter to be called before creating project obj 
+  double calcTotalCost(List<Task> tasks) {
+    //uses parmeter to be called before creating project obj
     double total = 0;
     for (var task in tasks) {
       total += task.cost;
@@ -53,11 +49,11 @@ class Project {
     return total;
   }
 
-  List<Map<String, dynamic>> tasksToMap(){
-    List<Map<String, dynamic>> tasksList = List.empty();
+  List<Map<String, dynamic>> tasksToMap() {
+    List<Map<String, dynamic>> tasksList = [];
     for (var task in tasks) {
       tasksList.add(task.toMap());
-    }//end for in
+    } //end for in
     return tasksList;
   }
 }

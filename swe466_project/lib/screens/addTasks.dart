@@ -93,7 +93,7 @@ class _AddTasksState extends State<AddTasks> {
               padding: edgePadding,
               child: CustomButton(() {
                 saveTaskInfo();
-              }, "Add New Task"),
+              }, "Add Task"),
             ),
             Padding(
                 padding: edgePadding,
