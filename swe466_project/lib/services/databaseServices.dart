@@ -23,10 +23,12 @@ class DatabaseServices {
       } else {
         _projectController.add(List<Project>.empty());
       }
-
     });
 
-    return  _projectController.stream;
+    return _projectController.stream;
+  }
 
+  Future deleteTask(Project project) async {
+    await projectsCollection.doc(project.name).update(project.toMap());
   }
 }

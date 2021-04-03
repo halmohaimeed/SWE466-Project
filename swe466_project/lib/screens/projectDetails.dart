@@ -1,12 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:swe466_project/models/project.dart';
+import 'package:swe466_project/services/databaseServices.dart';
 
-class ProjectDetails extends StatelessWidget {
+import '../locator.dart';
+
+class ProjectDetails extends StatefulWidget {
   final Project project;
   const ProjectDetails({Key key, this.project}) : super(key: key);
+  @override
+  _ProjectDetailsState createState() => _ProjectDetailsState();
+}
 
+class _ProjectDetailsState extends State<ProjectDetails> {
+  double totalCost;
   @override
   Widget build(BuildContext context) {
+    totalCost = widget.project.totalCost;
     var screenSize = MediaQuery.of(context).size;
     var width = screenSize.width;
     var height = screenSize.height;
@@ -39,7 +48,7 @@ class ProjectDetails extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    project.name,
+                    widget.project.name,
                     style: TextStyle(
                       color: Colors.blue,
                       fontSize: 28,
@@ -69,7 +78,7 @@ class ProjectDetails extends StatelessWidget {
                     height: height * 0.005,
                   ),
                   Text(
-                    project.description,
+                    widget.project.description,
                     softWrap: true,
                     overflow: TextOverflow.visible,
                     style: TextStyle(
@@ -99,7 +108,7 @@ class ProjectDetails extends StatelessWidget {
                         width: width * 0.02,
                       ),
                       Text(
-                        "${project.totalCost}",
+                        "${totalCost}",
                         style: TextStyle(
                           color: Colors.black87,
                           fontSize: 20,
@@ -133,9 +142,9 @@ class ProjectDetails extends StatelessWidget {
                   Flexible(
                     child: ListView.builder(
                         shrinkWrap: true,
-                        itemCount: project.goals.length,
+                        itemCount: widget.project.goals.length,
                         itemBuilder: (context, index) {
-                          var goal = project.goals[index];
+                          var goal = widget.project.goals[index];
                           return Card(
                             color: Colors.lightBlue,
                             elevation: 3,
@@ -173,9 +182,9 @@ class ProjectDetails extends StatelessWidget {
             ),
             Flexible(
               child: ListView.builder(
-                  itemCount: project.tasks.length,
+                  itemCount: widget.project.tasks.length,
                   itemBuilder: (context, index) {
-                    var task = project.tasks[index];
+                    var task = widget.project.tasks[index];
                     return Card(
                       elevation: 5,
                       shape: RoundedRectangleBorder(
@@ -258,6 +267,11 @@ class ProjectDetails extends StatelessWidget {
                               ),
                             ],
                           ),
+                          trailing: IconButton(
+                              icon: Icon(Icons.delete),
+                              onPressed: () async {
+                                await _showMyDialog(context, index);
+                              }),
                         ),
                       ),
                     );
@@ -266,6 +280,50 @@ class ProjectDetails extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  Future<void> _showMyDialog(context, index) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Delete'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text('Do you really want to delete this task?'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text('Yes'),
+              onPressed: () async {
+                setState(() {
+                  widget.project.tasks.removeAt(index);
+                  widget.project.totalCost =
+                      widget.project.calcTotalCost(widget.project.tasks);
+                  print(widget.project.totalCost);
+                  totalCost =
+                      widget.project.calcTotalCost(widget.project.tasks);
+                });
+
+                await locator<DatabaseServices>().deleteTask(widget.project);
+                build(context);
+                Navigator.of(context).pop(true);
+              },
+            ),
+            TextButton(
+              child: Text('No'),
+              onPressed: () {
+                Navigator.of(context).pop(true);
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }
