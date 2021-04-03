@@ -305,7 +305,6 @@ class _ProjectDetailsState extends State<ProjectDetails> {
                   widget.project.tasks.removeAt(index);
                   widget.project.totalCost =
                       widget.project.calcTotalCost(widget.project.tasks);
-                  print(widget.project.totalCost);
                   totalCost =
                       widget.project.calcTotalCost(widget.project.tasks);
                 });

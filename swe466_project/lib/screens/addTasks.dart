@@ -72,10 +72,10 @@ class _AddTasksState extends State<AddTasks> {
               child: TextField(
                 controller: startDateController,
                 decoration: InputDecoration(
+                  icon: Icon(Icons.calendar_today),
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(32.0)),
                   labelText: "Start Date",
-                  icon: Icon(Icons.calendar_today),
                   labelStyle: TextStyle(
                       fontSize: width * 0.04, color: Colors.grey[700]),
                 ),
@@ -151,7 +151,6 @@ class _AddTasksState extends State<AddTasks> {
         lastDate: DateTime(2120));
     if (_picker != null) {
       setState(() {
-        print(_picker);
         _dateTime = _picker;
         startDateController.text = _dateTime.toString().split(' ').first;
       });
@@ -174,21 +173,25 @@ class ResourceWidget extends StatelessWidget {
         children: <Widget>[
           Row(
             children: <Widget>[
-              Container(
-                width: 200,
-                padding: EdgeInsets.fromLTRB(5, 5, 5, 0),
-                child: getTextFiled(
-                    resourceNameController, "Resource Name", width),
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: width * 0.02),
+                child: SizedBox(
+                  width: width * 0.5,
+                  child: getTextFiled(
+                      resourceNameController, "Resource Name", width),
+                ),
               ),
-              Container(
-                width: 100,
-                padding: EdgeInsets.fromLTRB(5, 5, 5, 0),
-                child: getTextFiled(countController, "Count", width),
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: width * 0.02),
+                child: SizedBox(
+                    width: width * 0.25,
+                    child: getTextFiled(countController, "Count", width)),
               ),
-              Container(
-                width: 100,
-                padding: EdgeInsets.fromLTRB(5, 5, 5, 0),
-                child: getTextFiled(costController, "Cost ", width),
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: width * 0.02),
+                child: SizedBox(
+                    width: width * 0.25,
+                    child: getTextFiled(costController, "Cost ", width)),
               )
             ],
           )
